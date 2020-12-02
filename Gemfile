@@ -24,7 +24,7 @@ gem 'devise'
 
 # Image uploads
 gem 'carrierwave', '~> 2.0'
-gem 'fog', '~> 1.37.0'
+gem 'carrierwave-aws'
 
 # Image resizing
 gem 'mini_magick'
