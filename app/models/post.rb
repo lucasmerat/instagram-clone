@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   before_create :set_active
 
   belongs_to :account
+  has_many :likes
 
   scope :active, -> { where active: true }
 

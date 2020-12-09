@@ -2,11 +2,20 @@
   <div class="row">
     <div class="col-8">
       <% @posts.each do | post | %>
-        <div>
-          <%= post.account.username %>
-        </div>
+        <div class="card my-4">
+          <div>
+            <%= post.account.username %>
+          </div>
 
-        <%= image_tag post.image.url, class: "img img-fluid" %>
+          <%= image_tag post.image.url, class: "img img-fluid" %>
+          <div>
+            <%= post.description %>
+          </div>
+          <p>Liked by: </p>
+          <% post.likes.each do | like | %>
+            <%= like %>, 
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>

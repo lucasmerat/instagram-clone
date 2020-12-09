@@ -9,7 +9,6 @@ class PostsController < ApplicationController
     @post.account_id = current_account.id if account_signed_in?
     @post.active = true
 
-    
     if @post.save
       redirect_to dashboard_path, flash: { success: "Post created successfully" }
     else
@@ -22,6 +21,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:image, :image_cache)
+    params.require(:post).permit(:image, :description, :image_cache)
   end
 end
