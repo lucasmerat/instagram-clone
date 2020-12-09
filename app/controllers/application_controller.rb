@@ -2,7 +2,9 @@
 
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-
+  def user_liked
+    post.likes.map {|like| like.account_id}.include?(current_account.id)
+  end
   protected
 
   def configure_permitted_parameters

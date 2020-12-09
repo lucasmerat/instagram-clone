@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get "/dashboard" => "accounts#index"
   get "/profile/:username" => "accounts#profile", as: :profile
 
-  resources :posts, only: [:new, :create, :show]
+  resources :posts do 
+    resources :likes
+  end
 
   root to: "public#homepage"
 end

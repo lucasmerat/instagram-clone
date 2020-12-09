@@ -5,5 +5,5 @@ class Account < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :posts
-  has_many :likes
+  has_many :likes, dependent: :destroy
 end

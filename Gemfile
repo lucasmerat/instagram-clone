@@ -29,6 +29,8 @@ gem 'carrierwave-aws'
 # Image resizing
 gem 'mini_magick'
 
+# Icons
+gem 'font-awesome-rails'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'

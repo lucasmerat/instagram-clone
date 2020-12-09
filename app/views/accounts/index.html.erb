@@ -11,9 +11,21 @@
           <div>
             <%= post.description %>
           </div>
+          <% if post.user_liked?(current_account.id) %>
+            <% pre_like = post.likes.find { |like| like.account_id == current_account.id} %>
+            <%= button_to "Unlike", 
+              post_like_path(post, pre_like), 
+              method: :delete
+            %>
+          <% else %>
+            <%= button_to "Like", 
+              post_likes_path(post), 
+              method: :create
+            %>
+          <% end %>
           <p>Liked by: </p>
           <% post.likes.each do | like | %>
-            <%= like %>, 
+            <%= like.account.username %>, 
           <% end %>
         </div>
       <% end %>
