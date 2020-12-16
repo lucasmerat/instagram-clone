@@ -14,10 +14,15 @@
           </div>
           <% if post.user_liked?(current_account.id) %>
             <% pre_like = post.likes.find { |like| like.account_id == current_account.id} %>
-            <%= button_to "Unlike", 
-              post_like_path(post, pre_like), 
-              method: :delete
-            %>
+            <div>
+              <button
+                class="btn btn-danger"
+                data-reflex="click->PostReflex#unlike"
+                data-post-id="<%= post.id %>"
+              >
+                Unlike
+              </button>
+            </div>
           <% else %>
             <div>
               <button
@@ -25,7 +30,7 @@
                 data-reflex="click->PostReflex#like"
                 data-post-id="<%= post.id %>"
               >
-                Like Post
+                Like
               </button>
             </div>   
           <% end %>

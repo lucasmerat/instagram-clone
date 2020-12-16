@@ -2,7 +2,7 @@ class PostReflex < ApplicationReflex
   delegate :current_account, to: :connection
   
   def like
-    @post_id = element.dataset[:post_id]
+    @post_id = element.dataset[:post_id].to_i
     find_post
 
     if already_liked?
@@ -12,13 +12,25 @@ class PostReflex < ApplicationReflex
     end
   end
 
+  def unlike
+    @post_id = element.dataset[:post_id].to_i
+    find_post
+    find_like
+
+    if !(already_liked?)
+      flash[:notice] = "Cannot unlike"
+    else
+      @like.destroy
+    end
+  end
+
   private
   def find_post
     @post = Post.find(@post_id)
   end
 
   def find_like
-    @like = @post.likes.find(@post_id) if @post.likes.size 
+    @like = @post.likes.find_by(post_id: @post_id)
   end
 
   def already_liked?
