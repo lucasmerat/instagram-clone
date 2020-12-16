@@ -12,7 +12,6 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    binding.pry
     if !(already_liked?)
       flash[:notice] = "Cannot unlike"
     else

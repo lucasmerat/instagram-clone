@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-8">
+    
       <% @posts.each do | post | %>
         <div class="card my-4">
           <div>
@@ -18,10 +19,15 @@
               method: :delete
             %>
           <% else %>
-            <%= button_to "Like", 
-              post_likes_path(post), 
-              method: :create
-            %>
+            <div>
+              <button
+                class="btn btn-primary"
+                data-reflex="click->PostReflex#like"
+                data-post-id="<%= post.id %>"
+              >
+                Like Post
+              </button>
+            </div>   
           <% end %>
           <p>Liked by: </p>
           <% post.likes.each do | like | %>
