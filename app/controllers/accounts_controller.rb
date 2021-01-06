@@ -5,6 +5,7 @@ class AccountsController < ApplicationController
   def index
     # dashboard feed of posts
     @posts = Post.active
+    @comment = Comment
   end
 
   def profile

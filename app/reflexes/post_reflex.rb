@@ -24,6 +24,14 @@ class PostReflex < ApplicationReflex
     end
   end
 
+  def comment
+    @post_id = element.dataset[:post_id].to_i
+    find_post
+    text = params[:post][:text]
+
+    @post.comments.create(text: text, account_id: current_account.id)
+  end
+
   private
   def find_post
     @post = Post.find(@post_id)
@@ -36,5 +44,9 @@ class PostReflex < ApplicationReflex
   def already_liked?
     Like.where(account_id: current_account.id, post_id:
     @post_id).exists?
+  end
+
+  def account_params
+    params.require(:post).permit(:text)
   end
 end
