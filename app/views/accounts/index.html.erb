@@ -3,42 +3,7 @@
     <div class="col-8">
     
       <% @posts.each do | post | %>
-        <div class="card my-4">
-          <div>
-            <%= post.account.username %>
-          </div>
-
-          <%= image_tag post.image.url, class: "img img-fluid" %>
-          <div>
-            <%= post.description %>
-          </div>
-          <% if post.user_liked?(current_account.id) %>
-            <% pre_like = post.likes.find { |like| like.account_id == current_account.id} %>
-            <div>
-              <button
-                class="btn btn-danger"
-                data-reflex="click->PostReflex#unlike"
-                data-post-id="<%= post.id %>"
-              >
-                Unlike
-              </button>
-            </div>
-          <% else %>
-            <div>
-              <button
-                class="btn btn-primary"
-                data-reflex="click->PostReflex#like"
-                data-post-id="<%= post.id %>"
-              >
-                Like
-              </button>
-            </div>   
-          <% end %>
-          <p>Liked by: </p>
-          <% post.likes.each do | like | %>
-            <%= like.account.username %>, 
-          <% end %>
-        </div>
+        <%= render partial: "post", :locals => { post: post, comment: @comment } %>
       <% end %>
     </div>
   </div>

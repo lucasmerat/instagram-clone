@@ -1,0 +1,61 @@
+<div class="card my-4">
+  <div>
+    <%= post.account.username %>
+  </div>
+
+  <%= image_tag post.image.url, class: "img img-fluid" %>
+  <div>
+    <%= post.description %>
+  </div>
+  <% if post.user_liked?(current_account.id) %>
+    <% pre_like = post.likes.find { |like| like.account_id == current_account.id} %>
+    <div>
+      <button
+        class="btn btn-danger"
+        data-reflex="click->PostReflex#unlike"
+        data-post-id="<%= post.id %>"
+      >
+        Unlike
+      </button>
+    </div>
+  <% else %>
+    <div>
+      <button
+        class="btn btn-primary"
+        data-reflex="click->PostReflex#like"
+        data-post-id="<%= post.id %>"
+      >
+        Like
+      </button>
+    </div>   
+  <% end %>
+  <span>Liked by: </span>
+  <% post.likes.each do | like | %>
+    <span><%= like.account.username %></span>
+  <% end %>
+
+  <p class='mt-4'>Add a new comment:</p>
+
+  <%= form_with(model: post, data: { reflex: "submit->PostReflex#comment", post_id: post.id }) do |f| %>
+    <div class="field">
+      <%= f.text_field :text %>
+      <div>
+        <%= f.submit "Add comment" %>
+      </div>  
+    </div>
+  <% end %>
+
+  <p>Comments:</p>
+  <% post.comments.each do | comment |%>
+    <div class='card col-6 bg-'>
+      <div>
+        <span><%= comment.account.username %> says: </span>
+      </div>
+      "<%= comment.text %>"
+      <div>
+        (<%= comment.created_at.strftime('%B %d, %Y') %>)
+      </div>
+    </div>
+  <% end %>
+
+</div>
