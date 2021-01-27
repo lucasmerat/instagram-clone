@@ -3,7 +3,7 @@
     <div class="col-8">
     
       <% @posts.each do | post | %>
-        <%= render partial: "post", :locals => { post: post, comment: @comment } %>
+        <%= render partial: "post", :locals => { current_account: current_account, post: post, comment: @comment } %>
       <% end %>
     </div>
   </div>
