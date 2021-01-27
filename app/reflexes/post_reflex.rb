@@ -10,6 +10,11 @@ class PostReflex < ApplicationReflex
     else
       @post.likes.create(account_id: current_account.id)
     end
+
+    morph "#post-#{@post_id}", ApplicationController.render(
+      partial: "accounts/post",
+      locals: { post: @post, current_account: current_account }
+    )
   end
 
   def unlike
@@ -22,6 +27,11 @@ class PostReflex < ApplicationReflex
     else
       @like.destroy
     end
+
+    morph "#post-#{@post_id}", ApplicationController.render(
+      partial: "accounts/post",
+      locals: { post: @post, current_account: current_account }
+    )
   end
 
   def comment
@@ -34,7 +44,7 @@ class PostReflex < ApplicationReflex
 
   private
   def find_post
-    @post = Post.find(@post_id)
+    @post = Post.includes(:account).find(@post_id)
   end
 
   def find_like
